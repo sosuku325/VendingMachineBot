@@ -5,10 +5,21 @@ import os
 import traceback
 import utils
 import paypayu
+from dotenv import load_dotenv
+from pathlib import Path
 
-TOKEN = "botのトークンを入力"
 
-intents = discord.Intents.all()
+env_path = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=env_path)
+TOKEN = os.getenv("DISCORD_BOT_TOKEN")
+if TOKEN is None:
+    raise ValueError("DISCORD_BOT_TOKEN が未設定だから環境変数を確認してめ")
+if not TOKEN or len(TOKEN) < 50:
+    raise ValueError("トークンの形式がおかしい")
+
+
+intents = discord.Intents.default()
+intents.message_content = True
 bot = commands.Bot(
     command_prefix="$",
     intents=intents,
@@ -55,4 +66,4 @@ async def on_app_command_error(
     traceback.print_exc()
     
 if __name__ == "__main__":
-    bot.run("botのトークンを入力")
+    bot.run(TOKEN)
