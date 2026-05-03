@@ -13,7 +13,7 @@ env_path = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path=env_path)
 TOKEN = os.getenv("DISCORD_BOT_TOKEN")
 if TOKEN is None:
-    raise ValueError("DISCORD_BOT_TOKEN が未設定だから環境変数を確認してめ")
+    raise ValueError("DISCORD_BOT_TOKEN が未設定だから環境変数を確認してね")
 if not TOKEN or len(TOKEN) < 50:
     raise ValueError("トークンの形式がおかしい")
 
